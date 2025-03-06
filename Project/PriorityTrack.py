@@ -41,12 +41,16 @@ while cap.isOpened():
         obj_class = int(detections[i, 5]) 
 
         
-        color = (0, 255, 0)  
-        if obj_class == 0:  
-            color = (0, 0, 255)  
         
-        cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
-        cv2.putText(frame, f'ID {tid}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+        if obj_class == 0:  
+            cx,cy = (x1+x2)//2, (y1+y2)//2
+            
+            color = (0,255,0) 
+        
+            cv2.line(frame,(cx-20,cy),(cx+20,cy),color,2)
+            cv2.line(frame,(cx,cy-20),(cx,cy+20),color,2)
+
+        cv2.putText(frame, f'ID {tid}', (x1, y1 - 2), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
     cv2.imshow('Object Detection', frame)
 
